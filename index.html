@@ -12,19 +12,39 @@
         <h1>Welcome to your bookstore</h1>
       </header>
       <main>
-        <form id="book-form">
-          <label for="title">Insert Title</label>
-          <input id="title" name="title" type="text" required />
+        <section>
+          <form id="book-form">
+            <label for="title">Insert Title</label>
+            <input id="title" name="title" type="text" required />
 
-          <label for="author">Insert Author</label>
-          <input id="author" name="author" type="text" required />
+            <label for="author">Insert Author</label>
+            <input id="author" name="author" type="text" required />
 
-          <label for="pages">Number of pages</label>
-          <input id="pages" name="pages" type="number" required />
+            <label for="pages">Number of pages</label>
+            <input id="pages" name="pages" type="number" required />
 
-          <input type="submit" value="Submit" />
-        </form>
+            <label for="read">Have Read?</label>
+            <input type="checkbox" id="read" name="read" />
+
+            <button type="submit" id="button">Add Book</button>
+          </form>
+        </section>
       </main>
+      <section>
+        <h2>Your Library</h2>
+        <table class="library">
+          <thead class="tableHead">
+            <th>Title</th>
+            <th>Author</th>
+            <th>Pages</th>
+            <th>Read</th>
+            <th>Actions</th>
+          </thead>
+          <tbody class="tableBody">
+            <!-- Livros adicionados dinamicamente -->
+          </tbody>
+        </table>
+      </section>
     </div>
     <script src="script.js"></script>
   </body>
