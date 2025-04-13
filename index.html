@@ -12,7 +12,7 @@
         <h1>Welcome to your bookstore</h1>
       </header>
       <main>
-        <section>
+        <section class="form">
           <form id="book-form">
             <label for="title">Insert Title</label>
             <input id="title" name="title" type="text" required />
@@ -30,7 +30,7 @@
           </form>
         </section>
       </main>
-      <section>
+      <section class="yourLibrary">
         <h2>Your Library</h2>
         <table class="library">
           <thead class="tableHead">
@@ -40,7 +40,7 @@
             <th>Read</th>
             <th>Actions</th>
           </thead>
-          <tbody class="tableBody">
+          <tbody class="tableBody" id="tableBody">
             <!-- Livros adicionados dinamicamente -->
           </tbody>
         </table>

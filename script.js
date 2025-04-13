@@ -1,26 +1,53 @@
 const title = document.getElementById("title");
 const author = document.getElementById("author");
 const pages = document.getElementById("pages");
-const submit = document.getElementById("button");
 const read = document.getElementById("read");
-const tableBody = document.querySelector(".library tbody");
+const button = document.getElementById("button");
+const tableBody = document.getElementById("tableBody");
 const myLibrary = [];
 
-function Book(title, author, pages, read) {
+// Classe para criar um livro
+function Book(title, author, pages, read, id) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.read = read;
-  this.id = crypto.randomUUID();
+  this.id = id;
 }
 
-function addBookToLibrary(title, author, pages, read) {
-  myLibrary.push(new Book(title, author, pages, read));
-  document.getElementById("book-form").reset(); // Limpa o formulário
+// Função para adicionar um livro à biblioteca
+function addBookToLibrary(event) {
+  event.preventDefault();
+
+  // Validação dos campos
+  if (!title.value || !author.value || !pages.value || pages.value <= 0) {
+    alert("Please fill all fields correctly!");
+    return;
+  }
+
+  // Cria um novo livro
+  const id = crypto.randomUUID();
+  const newBook = new Book(
+    title.value,
+    author.value,
+    pages.value,
+    read.checked,
+    id
+  );
+  myLibrary.push(newBook);
+
+  displayLibrary(); // Atualiza a tabela
+
+  // Limpa os campos do formulário
+  title.value = "";
+  author.value = "";
+  pages.value = "";
+  read.checked = false;
 }
 
+// Função para exibir os livros na tabela
 function displayLibrary() {
-  tableBody.innerHTML = "";
+  tableBody.innerHTML = ""; // Limpa o conteúdo atual da tabela
 
   myLibrary.forEach((book) => {
     const row = document.createElement("tr");
@@ -37,26 +64,24 @@ function displayLibrary() {
 
     tableBody.appendChild(row);
   });
-
-  const removeButtons = document.querySelectorAll(".remove-btn");
-  removeButtons.forEach((button) => {
-    button.addEventListener("click", (e) => {
-      const id = e.target.dataset.id;
-      removeBook(id);
-    });
-  });
 }
 
+// Função para remover um livro
 function removeBook(id) {
   const bookIndex = myLibrary.findIndex((book) => book.id === id);
   if (bookIndex !== -1) {
-    myLibrary.splice(bookIndex, 1);
-    displayLibrary();
+    myLibrary.splice(bookIndex, 1); // Remove o livro do array
+    displayLibrary(); // Atualiza a tabela
   }
 }
 
-submit.addEventListener("click", function (e) {
-  e.preventDefault();
-  addBookToLibrary(title.value, author.value, pages.value, read.checked);
-  displayLibrary();
+// Evento delegado para remover livros
+tableBody.addEventListener("click", (e) => {
+  if (e.target.classList.contains("remove-btn")) {
+    const id = e.target.dataset.id;
+    removeBook(id);
+  }
 });
+
+// Adiciona o evento de clique ao botão
+button.addEventListener("click", addBookToLibrary);
